@@ -26,7 +26,7 @@ def list_users():
 
 
 @app.route("/create_user")
-def show_form():
+def show_create_form():
     """Form that allows user to create new users"""
     return render_template("create_user.html")
 
@@ -37,8 +37,45 @@ def create_user():
     first_name = request.form["first_name"]
     last_name = request.form["last_name"]
     image_url = request.form["url"]
+    if not image_url:
+        image_url = None
     new_user = User(first_name=first_name,
                     last_name=last_name, image_url=image_url)
     db.session.add(new_user)
     db.session.commit()
-    return render_template(f"{new_user.id}")
+    return redirect(f"{new_user.id}")
+
+
+@app.route("/<int:user_id>")
+def show_user(user_id):
+    """displays the selected user's profile"""
+    user = User.query.get_or_404(user_id)
+    return render_template("profile.html", user=user)
+
+
+@app.route("/edit_user/<int:user_id>")
+def show_edit_form(user_id):
+    """displays form to edit a user"""
+    user = User.query.get_or_404(user_id)
+    return render_template("edit_user.html", user=user)
+
+
+@app.route("/edit_user", methods=["POST"])
+def edit_user():
+    """updates the user's info in the db to the given fields"""
+    id = request.form["id"]
+    user = User.query.get(id)
+    user.first_name = request.form["first_name"]
+    user.last_name = request.form["last_name"]
+    user.image_url = request.form["url"]
+    db.session.commit()
+    return redirect(f"{id}")
+
+
+@app.route("/delete_user/<int:user_id>", methods=["POST"])
+def delete_user(user_id):
+    """Removes the selected user from the database"""
+    user = User.query.get(user_id)
+    db.session.delete(user)
+    db.session.commit()
+    return redirect("/")

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Edit User {% endblock %}
+
+{% block content %}
+<h1>Edit User</h1>
+<form action="/edit_user" method="POST">
+    <input type=hidden name="id" value={{user.id}}>
+    <p>First Name</p>
+    <input required="true" name="first_name" placeholder="Enter a first name" value="{{user.first_name}}">
+    <p>Last Name</p>
+    <input name="last_name" placeholder="Enter a last name" value="{{user.last_name}}">
+    <p>Image URL</p>
+    <input name="url" placeholder="Enter a URL for this user" value="{{user.image_url}}">
+    <p><input type="submit" value="submit"></p>
+</form>
+{% endblock %}

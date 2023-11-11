@@ -18,4 +18,4 @@ class User(db.Model):
     first_name = db.Column(db.String(50), nullable=False, unique=True)
     last_name = db.Column(db.String(50))
     image_url = db.Column(db.String(
-        100), default="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg")
+        100), nullable=False, default="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg")
