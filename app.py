@@ -9,6 +9,7 @@ app.config['SQLALCHEMY_ECHO'] = True
 app.app_context().push()
 
 connect_db(app)
+db.create_all()
 
 
 @app.route("/")
@@ -94,5 +95,39 @@ def create_post(user_id):
     content = request.form["content"]
     new_post = Post(title=title, content=content, user_id=user_id)
     db.session.add(new_post)
+    db.session.commit()
+    return redirect(f"/{user_id}")
+
+
+@app.route("/post/<int:post_id>")
+def show_post(post_id):
+    """Shows the selected post"""
+    post = Post.query.get_or_404(post_id)
+    return render_template("post.html", post=post)
+
+
+@app.route("/edit_post/<int:post_id>")
+def show_edit_post_form(post_id):
+    """displays the form to edit the post"""
+    post = Post.query.get_or_404(post_id)
+    return render_template("edit_post.html", post=post)
+
+
+@app.route("/edit_post/<int:post_id>", methods=["POST"])
+def edit_post(post_id):
+    """updates the post with the given fields"""
+    post = Post.query.get(post_id)
+    post.title = request.form["title"]
+    post.content = request.form["content"]
+    db.session.commit()
+    return redirect(f"/post/{post_id}")
+
+
+@app.route("/delete_post/<int:post_id>", methods=["POST"])
+def delete_post(post_id):
+    """deletes the post"""
+    post = Post.query.get(post_id)
+    user_id = post.user_id
+    db.session.delete(post)
     db.session.commit()
     return redirect(f"/{user_id}")

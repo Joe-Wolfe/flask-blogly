@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}{{post.title}}{% endblock %}
+
+{% block content%}
+<div>
+    <h1>{{post.title}}</h1>
+</div>
+<div class="row">
+
+    <div class="col-md-6">
+        <p>{{post.content}}</p>
+        <p>By: <a href="/{{post.user.id}}">{{post.user.first_name}} {{post.user.last_name}}</a></p>
+        <p>Created: {{post.created_at}}</p>
+        <div class="actions">
+            <form action="/edit_post/{{post.id}}" class="edit-form">
+                <input type="submit" value="Edit Post" class="btn btn-primary">
+            </form>
+
+            <form action="/delete_post/{{post.id}}" method="POST" class="delete-form">
+                <input type="submit" value="Delete Post" class="btn btn-danger">
+            </form>
+            <form action="/{{post.user.id}}" class="return-form">
+                <input type="submit" value="Return to {{post.user.first_name}}'s profile" class="btn btn-secondary">
+            </form>
+        </div>
+
+
+    </div>
+
+
+    {% endblock%}

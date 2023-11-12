@@ -29,7 +29,7 @@
         {% if user.posts %}
         <ul class="list-group">
             {% for post in user.posts %}
-            <li class="list-group-item">{{post.title}}</li>
+            <li class="list-group-item"><a href="/post/{{post.id}}">{{post.title}}</a></li>
             {% endfor %}
         </ul>
         {% else %}

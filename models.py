@@ -20,6 +20,8 @@ class User(db.Model):
     last_name = db.Column(db.String(50))
     image_url = db.Column(db.String(
         100), nullable=False, default="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg")
+    posts = db.relationship('Post', backref='user',
+                            cascade='all, delete-orphan')
 
     def __repr__(self):
         u = self
@@ -37,5 +39,3 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, nullable=False,
                            default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-
-    user = db.relationship('User', backref='posts')
