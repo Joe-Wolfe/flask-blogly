@@ -2,15 +2,25 @@
 {% block title %}New User {% endblock %}
 
 {% block content %}
-<h1>New User</h1>
-<form action="/create_user" method="POST">
-    <p>First Name</p>
-    <input required="true" name="first_name" placeholder="Enter a first name">
-    <p>Last Name</p>
-    <input name="last_name" placeholder="Enter a last name">
-    <p>Image URL</p>
-    <input name="url" placeholder="Enter a URL for this user">
-    <p><input type="submit" value="submit"></p>
+<div class="form-container">
+    <h1>New User</h1>
+    <form action="/create_user" method="POST" class="user-form">
+        <label for="first_name">First Name</label>
+        <input required="true" id="first_name" name="first_name" placeholder="Enter a first name" class="form-control">
 
-</form>
+        <label for="last_name">Last Name</label>
+        <input id="last_name" name="last_name" placeholder="Enter a last name" class="form-control">
+
+        <label for="url">Image URL</label>
+        <input id="url" name="url" placeholder="Enter a URL for this user" class="form-control">
+
+        <input type="submit" value="Submit" class="btn btn-primary">
+    </form>
+</div>
+
+<div class="actions">
+    <form action="/" class="return-form">
+        <input type="submit" value="Return to list" class="btn btn-secondary">
+    </form>
+</div>
 {% endblock %}

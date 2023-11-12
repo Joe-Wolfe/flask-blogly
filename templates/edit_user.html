@@ -2,15 +2,30 @@
 {% block title %}Edit User {% endblock %}
 
 {% block content %}
-<h1>Edit User</h1>
-<form action="/edit_user" method="POST">
-    <input type=hidden name="id" value={{user.id}}>
-    <p>First Name</p>
-    <input required="true" name="first_name" placeholder="Enter a first name" value="{{user.first_name}}">
-    <p>Last Name</p>
-    <input name="last_name" placeholder="Enter a last name" value="{{user.last_name}}">
-    <p>Image URL</p>
-    <input name="url" placeholder="Enter a URL for this user" value="{{user.image_url}}">
-    <p><input type="submit" value="submit"></p>
-</form>
+<div class="form-container">
+    <h1>Edit User</h1>
+    <form action="/edit_user" method="POST" class="user-form">
+        <input type=hidden name="id" value={{user.id}}>
+
+        <label for="first_name">First Name</label>
+        <input required="true" id="first_name" name="first_name" placeholder="Enter a first name"
+            value="{{user.first_name}}" class="form-control">
+
+        <label for="last_name">Last Name</label>
+        <input id="last_name" name="last_name" placeholder="Enter a last name" value="{{user.last_name}}"
+            class="form-control">
+
+        <label for="url">Image URL</label>
+        <input id="url" name="url" placeholder="Enter a URL for this user" value="{{user.image_url}}"
+            class="form-control">
+
+        <input type="submit" value="Submit" class="btn btn-primary">
+    </form>
+</div>
+
+<div class="actions">
+    <form action="/" class="return-form">
+        <input type="submit" value="Return to list" class="btn btn-secondary">
+    </form>
+</div>
 {% endblock %}

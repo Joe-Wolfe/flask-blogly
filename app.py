@@ -9,7 +9,6 @@ app.config['SQLALCHEMY_ECHO'] = True
 app.app_context().push()
 
 connect_db(app)
-db.create_all()
 
 
 @app.route("/")
